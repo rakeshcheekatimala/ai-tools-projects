@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris</title>
+    <link rel="stylesheet" href="tetris.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="game-board-container">
+            <canvas id="gameCanvas" width="300" height="600"></canvas>
+            <div class="game-over" id="gameOver">
+                <h2>Game Over!</h2>
+                <p>Final Score: <span id="finalScore">0</span></p>
+                <button onclick="restartGame()">Play Again</button>
+            </div>
+        </div>
+        <div class="game-info">
+            <div class="info-panel">
+                <h2>Score</h2>
+                <div class="score-display" id="score">0</div>
+            </div>
+            <div class="info-panel">
+                <h2>Controls</h2>
+                <div class="controls">
+                    <div><kbd>←</kbd> Move Left</div>
+                    <div><kbd>→</kbd> Move Right</div>
+                    <div><kbd>↓</kbd> Soft Drop</div>
+                    <div><kbd>↑</kbd> / <kbd>Space</kbd> Rotate</div>
+                </div>
+            </div>
+            <button id="startButton" onclick="startGame()">Start Game</button>
+        </div>
+    </div>
+
+    <script src="tetris.js"></script>
+</body>
+</html>

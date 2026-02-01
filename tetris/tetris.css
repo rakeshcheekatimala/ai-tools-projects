@@ -1,0 +1,432 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.game-container {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.game-board-container {
+    position: relative;
+}
+
+#gameCanvas {
+    border: 2px solid #333;
+    background: #1a1a1a;
+    display: block;
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 200px;
+}
+
+.info-panel {
+    background: #1a1a1a;
+    border: 2px solid #333;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.info-panel h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.score-display {
+    font-size: 32px;
+    font-weight: bold;
+    color: #00ff88;
+    margin: 10px 0;
+}
+
+.controls {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #ccc;
+}
+
+.controls kbd {
+    background: #333;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    border: 1px solid #555;
+}
+
+button {
+    background: #00ff88;
+    color: #0a0a0a;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+}
+
+button:hover {
+    background: #00cc6f;
+}
+
+button:disabled {
+    background: #555;
+    cursor: not-allowed;
+}
+
+.game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid #00ff88;
+    display: none;
+}
+
+.game-over.show {
+    display: block;
+}
+
+.game-over h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+    color: #00ff88;
+}
+
+.game-over p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* ============================================
+   LANDING PAGE STYLES
+   ============================================ */
+
+.landing-page {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    overflow: hidden;
+}
+
+.landing-container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero-section {
+    padding: 40px 20px;
+}
+
+/* Tetris Dog Mascot */
+.tetris-dog {
+    position: relative;
+    width: 200px;
+    height: 220px;
+    margin: 0 auto 40px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.dog-head {
+    position: relative;
+    width: 120px;
+    height: 100px;
+    margin: 0 auto;
+}
+
+.dog-ear {
+    position: absolute;
+    width: 30px;
+    height: 50px;
+    background: #8B4513;
+    border-radius: 50% 50% 0 0;
+    top: -10px;
+}
+
+.dog-ear.left {
+    left: 10px;
+    transform: rotate(-20deg);
+}
+
+.dog-ear.right {
+    right: 10px;
+    transform: rotate(20deg);
+}
+
+.dog-face {
+    position: absolute;
+    width: 100px;
+    height: 90px;
+    background: #D2691E;
+    border-radius: 50%;
+    top: 10px;
+    left: 10px;
+    border: 4px solid #8B4513;
+}
+
+.dog-eyes {
+    position: absolute;
+    width: 100%;
+    top: 25px;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 20px;
+}
+
+.eye {
+    width: 15px;
+    height: 15px;
+    background: #000;
+    border-radius: 50%;
+    animation: blink 3s infinite;
+}
+
+@keyframes blink {
+    0%, 48%, 52%, 100% { height: 15px; }
+    50% { height: 2px; }
+}
+
+.dog-nose {
+    position: absolute;
+    width: 20px;
+    height: 15px;
+    background: #000;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dog-mouth {
+    position: absolute;
+    width: 40px;
+    height: 20px;
+    border: 3px solid #000;
+    border-top: none;
+    border-radius: 0 0 40px 40px;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dog-body {
+    position: absolute;
+    width: 80px;
+    height: 60px;
+    background: #D2691E;
+    border-radius: 20px;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid #8B4513;
+}
+
+/* Tetris Blocks around the dog */
+.tetris-block {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.tetris-block.block1 {
+    background: #00ffff;
+    top: 20px;
+    right: 20px;
+    animation: rotate-block 4s infinite;
+}
+
+.tetris-block.block2 {
+    background: #ffff00;
+    bottom: 40px;
+    left: 10px;
+    animation: rotate-block 5s infinite reverse;
+}
+
+.tetris-block.block3 {
+    background: #ff0000;
+    top: 60px;
+    left: 0px;
+    animation: rotate-block 6s infinite;
+}
+
+@keyframes rotate-block {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(90deg); }
+    50% { transform: rotate(180deg); }
+    75% { transform: rotate(270deg); }
+}
+
+/* Game Title */
+.game-title {
+    font-size: 80px;
+    font-weight: 900;
+    margin: 20px 0;
+    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+    letter-spacing: 5px;
+}
+
+.letter {
+    display: inline-block;
+    animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.tagline {
+    font-size: 24px;
+    margin: 20px 0 40px;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 300;
+}
+
+/* Features */
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+
+.feature {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 20px 30px;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.feature-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.feature p {
+    font-size: 16px;
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Play Button */
+.play-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    background: #00ff88;
+    color: #000;
+    text-decoration: none;
+    padding: 20px 50px;
+    font-size: 28px;
+    font-weight: 900;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+    transition: all 0.3s ease;
+    margin: 40px 0 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.play-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.play-button:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.play-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 40px rgba(0, 255, 136, 0.6);
+}
+
+.button-text,
+.button-icon {
+    position: relative;
+    z-index: 1;
+}
+
+.button-icon {
+    font-size: 24px;
+}
+
+.hint {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-title {
+        font-size: 50px;
+    }
+    
+    .tagline {
+        font-size: 18px;
+    }
+    
+    .features {
+        gap: 20px;
+    }
+    
+    .feature {
+        padding: 15px 20px;
+    }
+    
+    .play-button {
+        padding: 15px 40px;
+        font-size: 22px;
+    }
+    
+    .tetris-dog {
+        transform: scale(0.8);
+    }
+}
