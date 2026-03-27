@@ -1,0 +1,19 @@
+# Next.js
+frontend/.next/
+frontend/out/
+
+# Dependencies
+frontend/node_modules/
+
+# Test results
+frontend/playwright-report/
+frontend/test-results/
+
+# Misc
+.DS_Store
+*.local
+
+# Environment
+.env
+.env.local
+.env.*.local
