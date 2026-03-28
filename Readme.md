@@ -14,3 +14,7 @@ Notes:
 - See each project folder for setup and usage details.
 
 
+The original author is Ed Donner, i have cloned his repo for my exploration & expermentation of opencode.
+
+Original Repo Owner: https://github.com/ed-donner/pm/tree/main
+
