@@ -4,7 +4,9 @@ Small collection of experiments and learning projects that explore AI tools in p
 
 Current highlights:
 - `arenashoot/`: a browser game sandbox used to try out AI-assisted changes.
-- kanban : A single-board Kanban project management app built with Next.js.
+- `kanban /`: A single-board Kanban project management app built with Next.js.
+- `tetris/`: A simple tetris game vibe coded by yolo mode. 
+
 
 Notes:
 - This repo is for learning and projects using ai-coding tools.
