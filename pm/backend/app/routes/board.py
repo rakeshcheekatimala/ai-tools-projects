@@ -1,6 +1,7 @@
 import sqlite3
 
 from fastapi import APIRouter, Depends, HTTPException
+from html_sanitizer import Sanitizer
 
 from app.database import (
     fetch_board,
@@ -13,6 +14,12 @@ from app.dependencies import get_db, get_username
 from app.models import CardCreate, CardUpdate, ColumnCreate, ColumnUpdate
 
 router = APIRouter()
+
+_sanitizer = Sanitizer()
+
+
+def sanitize_input(text: str) -> str:
+    return _sanitizer.sanitize(text)
 
 
 @router.get("/api/board")
@@ -155,7 +162,7 @@ def create_card(
 
     cursor = conn.execute(
         "INSERT INTO cards (column_id, title, details, position) VALUES (?, ?, ?, ?)",
-        (payload.column_id, payload.title, payload.details, insert_position),
+        (payload.column_id, sanitize_input(payload.title), sanitize_input(payload.details), insert_position),
     )
     card_id = int(cursor.lastrowid)
     ids.insert(insert_position, card_id)
@@ -190,12 +197,12 @@ def update_card(
     if payload.title is not None:
         conn.execute(
             "UPDATE cards SET title = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?",
-            (payload.title, card_id),
+            (sanitize_input(payload.title), card_id),
         )
     if payload.details is not None:
         conn.execute(
             "UPDATE cards SET details = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?",
-            (payload.details, card_id),
+            (sanitize_input(payload.details), card_id),
         )
 
     current_column_id = int(card["column_id"])

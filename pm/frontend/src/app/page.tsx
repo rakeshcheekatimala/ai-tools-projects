@@ -158,6 +158,13 @@ export default function Home() {
     if (Number.isNaN(cardIdNumber) || Number.isNaN(columnIdNumber)) {
       return;
     }
+
+    const previousBoard = board;
+    setBoard((prev) => {
+      if (!prev) return prev;
+      return { ...prev, columns: nextColumns };
+    });
+
     try {
       await updateCard(
         cardIdNumber,
@@ -171,7 +178,7 @@ export default function Home() {
     } catch (err) {
       if (process.env.NODE_ENV === "development") console.error(err);
       setBoardError("Unable to move the card.");
-      refreshBoard();
+      setBoard(previousBoard);
     }
   };
 
