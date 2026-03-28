@@ -3,6 +3,7 @@ import sqlite3
 
 import httpx
 from fastapi import HTTPException
+from html_sanitizer import Sanitizer
 
 from app.config import (
     OPENROUTER_BASE_URL,
@@ -20,6 +21,12 @@ from app.models import (
     UpdateCardAction,
     ChatAction,
 )
+
+_sanitizer = Sanitizer()
+
+
+def sanitize_input(text: str) -> str:
+    return _sanitizer.sanitize(text)
 
 
 def parse_structured_output(content: str) -> StructuredChatOutput:
@@ -153,7 +160,7 @@ def apply_actions(
 
             cursor = conn.execute(
                 "INSERT INTO cards (column_id, title, details, position) VALUES (?, ?, ?, ?)",
-                (int(action.columnId), action.title, action.details, insert_position),
+                (int(action.columnId), sanitize_input(action.title), sanitize_input(action.details), insert_position),
             )
             card_id = int(cursor.lastrowid)
             ids.insert(insert_position, card_id)
@@ -175,12 +182,12 @@ def apply_actions(
             if action.title is not None:
                 conn.execute(
                     "UPDATE cards SET title = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?",
-                    (action.title, int(action.cardId)),
+                    (sanitize_input(action.title), int(action.cardId)),
                 )
             if action.details is not None:
                 conn.execute(
                     "UPDATE cards SET details = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?",
-                    (action.details, int(action.cardId)),
+                    (sanitize_input(action.details), int(action.cardId)),
                 )
             continue
 

@@ -104,14 +104,17 @@ export const KanbanBoard = ({
 
     const overId = resolvedOverId;
 
-    setBoard((prev) => {
-      const nextColumns = moveCard(prev.columns, activeId, overId);
-      onMoveCard?.(activeId, overId, nextColumns);
-      return {
-        ...prev,
-        columns: nextColumns,
-      };
-    });
+    if (onMoveCard) {
+      onMoveCard(activeId, overId, moveCard(board.columns, activeId, overId));
+    } else {
+      setBoard((prev) => {
+        const nextColumns = moveCard(prev.columns, activeId, overId);
+        return {
+          ...prev,
+          columns: nextColumns,
+        };
+      });
+    }
 
     lastOverId.current = null;
   };
